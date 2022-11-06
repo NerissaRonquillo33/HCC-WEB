@@ -2,7 +2,7 @@
 include_once(dirname(__FILE__).'/database/connector.php');
 session_start();
 if ( !isset( $_SESSION['username'] ) ) {
-    header( 'Location: /' );
+    header( 'Location: ./' );
     exit();
 }
 $status = "";
@@ -49,12 +49,12 @@ if (isset($_GET['id'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HCC</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="logo"><img src="/images/logo.png"/></div>
+            <div class="logo"><img src="./images/logo.png"/></div>
         </div>
         <div class="row">
             <div class="forms">
@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
                     <div class="row"><input type="text" name="description" value="<?php echo $row["description"]; ?>" placeholder="Description" required /></div>
                     <div class="row"><input class="primary" type="submit" name="action" value="Edit" style="width: 100%;"></div>
                     <div class="row"><input class="primary" type="submit" name="action" value="Delete" style="width: 100%;"></div>
-                    <a href="/schedules.php" style="color: blue;text-decoration: none;">&lt;&lt; Back</a>
+                    <a href="./schedules.php" style="color: blue;text-decoration: none;">&lt;&lt; Back</a>
                     <?php if ($status == "none") echo '<div class="row" style="color: red;">Please fill the textboxes.</div>'; ?>
                     <?php if ($status == "success") echo '<div class="row" style="color: green;">Edit successful.</div>'; ?>
                     <?php if ($status == "error") echo '<div class="row" style="color: red;">Errors during insert.</div>'; ?>

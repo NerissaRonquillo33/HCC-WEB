@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ( isset( $_SESSION['username'] ) ) {
-    header( 'Location: dashboard.php' );
+    header( 'Location: ./dashboard.php' );
     exit();
 }
 ?>
@@ -11,12 +11,12 @@ if ( isset( $_SESSION['username'] ) ) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HCC</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="logo"><img src="/images/logo.png"/></div>
+            <div class="logo"><img src="./images/logo.png"/></div>
         </div>
         <div class="row">
             <div class="forms">

@@ -2,15 +2,15 @@
 include_once(dirname(__FILE__).'/database/connector.php');
 session_start();
 if (isset($_SESSION['username'])) {
-    header('Location: dashboard.php');
+    header('Location: ./dashboard.php');
     die();
 }
 if (!isset($_POST['username']) && !isset($_POST['password'])) {
-    header('Location: index.php?status=none');
+    header('Location: ./index.php?status=none');
     die();
 }
 if (empty($_POST['username']) || empty($_POST['password'])) {
-    header('Location: index.php?status=none');
+    header('Location: ./index.php?status=none');
     die();
 }
 $mysqli = DB();
@@ -23,7 +23,7 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 $count = mysqli_num_rows($result);
 if($count > 0) {
     $_SESSION['username'] = $username;
-    header("location: dashboard.php");
+    header("location: ./dashboard.php");
 }else {
-    header("location: index.php?status=denied");
+    header("location: ./index.php?status=denied");
 }

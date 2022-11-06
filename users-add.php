@@ -2,7 +2,7 @@
 include_once(dirname(__FILE__).'/database/connector.php');
 session_start();
 if ( !isset( $_SESSION['username'] ) ) {
-    header( 'Location: /' );
+    header( 'Location: ./' );
     exit();
 }
 $status = "";
@@ -40,12 +40,12 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HCC</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="logo"><img src="/images/logo.png"/></div>
+            <div class="logo"><img src="./images/logo.png"/></div>
         </div>
         <div class="row">
             <div class="forms">
@@ -61,7 +61,7 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
                     <div class="row"><input type="text" name="username" placeholder="Username" required /></div>
                     <div class="row"><input type="text" name="password" placeholder="Password" required /></div>
                     <div class="row"><input class="primary" type="submit" value="Add"></div>
-                    <a href="/users.php" style="color: blue;text-decoration: none;">&lt;&lt; Back</a>
+                    <a href="./users.php" style="color: blue;text-decoration: none;">&lt;&lt; Back</a>
                     <?php if ($status == "none") echo '<div class="row" style="color: red;">Please fill the textboxes.</div>'; ?>
                     <?php if ($status == "success") echo '<div class="row" style="color: green;">Added successful.</div>'; ?>
                     <?php if ($status == "error") echo '<div class="row" style="color: red;">Errors during insert.</div>'; ?>
