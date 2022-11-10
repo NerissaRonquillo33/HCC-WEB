@@ -15,15 +15,20 @@ if ( !isset( $_SESSION['username'] ) ) {
 </head>
 <body>
     <div class="container">
+        <div class="row header-sub-menu">
+            <div class="table">
+                <div class="table-row"><div class="table-cell-nav-left"><h3 style="color: #fff;">HCC PORTAL</h3></div></div>
+            </div>
+        </div>
         <div class="row">
             <div class="logo"><img src="./images/logo.png"/></div>
         </div>
         <div class="row">
             <div class="grid-container">
                 <div class="grid-item" onclick="location.href='./bills.php';" ><img src="./images/bill.png" style="width: 70px;"><br>Bills</div>
-                <div class="grid-item" onclick="location.href='./schedules.php';" ><img src="./images/schedule.svg" style="width: 70px;"><br>Schedules</div>
-                <div class="grid-item" onclick="location.href='./grades.php';" ><img src="./images/grades.png" style="width: 70px;"><br>Grades</div>  
+                <div class="grid-item" onclick="location.href='./grades.php';" ><img src="./images/grades.png" style="width: 70px;"><br>Grades</div>
                 <div class="grid-item" onclick="location.href='./courses.php';" ><img src="./images/course.png" style="width: 70px;"><br>Courses</div>
+                <div class="grid-item" onclick="location.href='./student-course.php';" ><img src="./images/schedule.svg" style="width: 70px;"><br>Student<br>Courses</div>
                 <div class="grid-item" onclick="location.href='./users.php';" ><img src="./images/users.png" style="width: 70px;"><br>Users</div>
             </div>
         </div>

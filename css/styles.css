@@ -17,7 +17,7 @@ body
     border-radius: 10px;
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
 }
-.container input[type=text], input[type=password], input[type=number]
+.container input[type=text], input[type=password], input[type=number], select
 {
     width: 100%;
     height: 50px;
@@ -89,17 +89,58 @@ body
     width: 100%;
     cursor: pointer;
 }
+.btn-wrap
+{
+    border: 1px solid #c5c7ca;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
 .table
 {
     display: table;
     width: 100%;
 }
+.table-cell-nav-left
+{
+    display: table-cell;
+    padding: 10px;
+    text-align: left;
+}
+.table-cell-nav-right
+{
+    display: table-cell;
+    padding: 10px;
+    text-align: right;
+}
+.table-cell-nav-bar
+{
+    display: table-cell;
+    padding: 10px;
+    text-align: right;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.table-cell-nav-bar:hover
+{
+    background-color: #555;
+}
 .table-cell
 {
     display: table-cell;
     padding: 10px;
-    text-align: justify;
+    text-align: left;
     border-bottom: 1px solid #d5dee7;
+}
+.table-cell-head
+{
+    display: table-cell;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #d5dee7;
+    font-weight: bold;
 }
 .table-cell-button
 {
@@ -123,6 +164,15 @@ body
 .table-row-down
 {
     display: table-row;
+}
+.header-sub-menu
+{
+    border-radius: 5px;
+    background-color: #5c91d3;
+}
+.header-sub-menu img
+{
+    width: 40px;
 }
 
 /* color button prim */

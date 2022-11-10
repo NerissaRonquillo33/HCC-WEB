@@ -21,9 +21,10 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
         $course = trim(mysqli_real_escape_string($mysqli,$_POST['course']));
         $username = trim(mysqli_real_escape_string($mysqli,$_POST['username']));
         $password = trim(mysqli_real_escape_string($mysqli,$_POST['password']));
+        $role = trim(mysqli_real_escape_string($mysqli,$_POST['role']));
         $token = bin2hex(random_bytes(20));
 
-        $sql = "INSERT INTO users(firstname,middlename,lastname,contact,gender,dob,age,course,username,password,token) VALUES('$firstname','$middlename','$lastname','$contact','$gender','$dob',$age,'$course','$username','$password','$token')";
+        $sql = "INSERT INTO users(firstname,middlename,lastname,contact,gender,dob,age,course_id,username,password,token,role) VALUES('$firstname','$middlename','$lastname','$contact','$gender','$dob',$age,$course,'$username','$password','$token','$role')";
         try {
             if ($mysqli->query($sql)) $status = "success";
             if ($mysqli->errno) $status = "error";
@@ -41,9 +42,16 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HCC</title>
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/main.js"></script>
 </head>
 <body>
     <div class="container">
+        <div class="row header-sub-menu">
+            <div class="table">
+                <div class="table-row"><div class="table-cell-nav-left"><img src="./images/back.png" data-url="./users.php" style="cursor: pointer;"/></div></div>
+            </div>
+        </div>
         <div class="row">
             <div class="logo"><img src="./images/logo.png"/></div>
         </div>
@@ -57,11 +65,29 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
                     <div class="row"><input type="text" name="gender" placeholder="Gender" required /></div>
                     <div class="row"><input type="text" name="dob" placeholder="Date of birth" required /></div>
                     <div class="row"><input type="number" name="age" placeholder="Age" required /></div>
-                    <div class="row"><input type="text" name="course" placeholder="Course" required /></div>
+                    <div class="row">
+                        <select name="course">
+                            <?php
+                            $mysqli = DB();
+                            $result = $mysqli->query("SELECT * FROM courses_name");
+
+                            $rows = $result->fetch_all(MYSQLI_ASSOC);
+                            foreach ($rows as $row) {
+                                echo '<option value="'.$row["id"].'">'.$row["title"].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
                     <div class="row"><input type="text" name="username" placeholder="Username" required /></div>
                     <div class="row"><input type="text" name="password" placeholder="Password" required /></div>
+                    <div class="row">
+                        <select name="role">
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
                     <div class="row"><input class="primary" type="submit" value="Add"></div>
-                    <a href="./users.php" style="color: blue;text-decoration: none;">&lt;&lt; Back</a>
                     <?php if ($status == "none") echo '<div class="row" style="color: red;">Please fill the textboxes.</div>'; ?>
                     <?php if ($status == "success") echo '<div class="row" style="color: green;">Added successful.</div>'; ?>
                     <?php if ($status == "error") echo '<div class="row" style="color: red;">Errors during insert.</div>'; ?>

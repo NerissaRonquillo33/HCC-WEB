@@ -9,7 +9,10 @@ try {
         $mysqli = DB();
         $secret_key = $json["secret_key"];
         $username = trim(mysqli_real_escape_string($mysqli,$json["username"]));
-        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $sql = "SELECT usr.id,cour_n.title,usr.image,usr.firstname,usr.middlename,usr.lastname,usr.contact,usr.gender,usr.dob,usr.age,usr.course_id,usr.username,usr.password,usr.token,usr.role FROM users usr 
+        LEFT JOIN courses_name cour_n
+        ON usr.course_id = cour_n.id
+        WHERE usr.username = '$username'";
         $result = mysqli_query($mysqli,$sql);
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
         $count = mysqli_num_rows($result);
