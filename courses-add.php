@@ -14,11 +14,13 @@ if (isset($_POST['code']) && isset($_POST['courses_name']) && isset($_POST['desc
         $courses_name = trim(mysqli_real_escape_string($mysqli,$_POST['courses_name']));
         $code = trim(mysqli_real_escape_string($mysqli,$_POST['code']));
         $description = trim(mysqli_real_escape_string($mysqli,$_POST['description']));
+        $objectives = trim(mysqli_real_escape_string($mysqli,$_POST['objectives']));
+        $schedule = trim(mysqli_real_escape_string($mysqli,$_POST['schedule']));
         $unit = trim(mysqli_real_escape_string($mysqli,$_POST['unit']));
         $semester = trim(mysqli_real_escape_string($mysqli,$_POST['semester']));
         $year = trim(mysqli_real_escape_string($mysqli,$_POST['year']));
 
-        $sql = "INSERT INTO courses(code,description,unit,semester,year,course_name_id) VALUES('$code','$description',$unit,$semester,$year,$courses_name)";
+        $sql = "INSERT INTO courses(code,description,unit,semester,year,course_name_id,objectives,schedule) VALUES('$code','$description',$unit,$semester,$year,$courses_name,'$objectives','$schedule')";
         try {
             if ($mysqli->query($sql)) $status = "success";
             if ($mysqli->errno) $status = "error";
@@ -67,6 +69,8 @@ if (isset($_POST['code']) && isset($_POST['courses_name']) && isset($_POST['desc
                     </div>
                     <div class="row"><input type="text" name="code" placeholder="Code" required /></div>
                     <div class="row"><input type="text" name="description" placeholder="Description" required /></div>
+                    <div class="row"><input type="text" name="objectives" placeholder="Objectives" required /></div>
+                    <div class="row"><input type="text" name="schedule" placeholder="Schedule" required /></div>
                     <div class="row"><input type="number" name="unit" placeholder="Unit" required /></div>
                     <div class="row"><input type="number" name="semester" placeholder="Semester" required /></div>
                     <div class="row"><input type="number" name="year" placeholder="Year" required /></div>

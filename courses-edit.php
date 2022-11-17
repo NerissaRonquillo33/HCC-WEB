@@ -6,7 +6,7 @@ if ( !isset( $_SESSION['username'] ) ) {
     exit();
 }
 $status = "";
-$row = array("code"=>"","description"=>"","unit"=>"","semester"=>"","year"=>"");
+$row = array("code"=>"","description"=>"","objectives"=>"","schedule"=>"","unit"=>"","semester"=>"","year"=>"");
 if (isset($_POST['action']) && isset($_POST['id']) && isset($_POST['code']) && isset($_POST['courses_name']) && isset($_POST['description']) && isset($_POST['unit']) && isset($_POST['semester']) && isset($_POST['year'])) {
     if (empty($_POST['action']) || empty($_POST['id']) || empty($_POST['code']) || empty($_POST['courses_name']) || empty($_POST['description']) || empty($_POST['unit']) || empty($_POST['semester']) || empty($_POST['year'])) {
         $status = "none";
@@ -18,11 +18,13 @@ if (isset($_POST['action']) && isset($_POST['id']) && isset($_POST['code']) && i
         $courses_name = trim(mysqli_real_escape_string($mysqli,$_POST['courses_name']));
         $code = trim(mysqli_real_escape_string($mysqli,$_POST['code']));
         $description = trim(mysqli_real_escape_string($mysqli,$_POST['description']));
+        $objectives = trim(mysqli_real_escape_string($mysqli,$_POST['objectives']));
+        $schedule = trim(mysqli_real_escape_string($mysqli,$_POST['schedule']));
         $unit = trim(mysqli_real_escape_string($mysqli,$_POST['unit']));
         $semester = trim(mysqli_real_escape_string($mysqli,$_POST['semester']));
         $year = trim(mysqli_real_escape_string($mysqli,$_POST['year']));
         if ($action == "Edit") {
-            $sql = "UPDATE courses SET code='$code',description='$description',unit=$unit,semester=$semester,year=$year,course_name_id=$courses_name WHERE id=$id";
+            $sql = "UPDATE courses SET code='$code',description='$description',unit=$unit,semester=$semester,year=$year,course_name_id=$courses_name,objectives='$objectives',schedule='$schedule' WHERE id=$id";
         }
         else if ($action == "Delete") {
             $sql = "DELETE FROM courses WHERE id=$id";
@@ -86,6 +88,8 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="row"><input type="text" name="code" value="<?php echo $row["code"]; ?>" placeholder="Code" required /></div>
                     <div class="row"><input type="text" name="description" value="<?php echo $row["description"]; ?>" placeholder="Description" required /></div>
+                    <div class="row"><input type="text" name="objectives" value="<?php echo $row["objectives"]; ?>" placeholder="Objectives" required /></div>
+                    <div class="row"><input type="text" name="schedule" value="<?php echo $row["schedule"]; ?>" placeholder="Schedule" required /></div>
                     <div class="row"><input type="number" name="unit" value="<?php echo $row["unit"]; ?>" placeholder="Unit" required /></div>
                     <div class="row"><input type="number" name="semester" value="<?php echo $row["semester"]; ?>" placeholder="Semester" required /></div>
                     <div class="row"><input type="number" name="year" value="<?php echo $row["year"]; ?>" placeholder="Year" required /></div>

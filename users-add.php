@@ -6,25 +6,32 @@ if ( !isset( $_SESSION['username'] ) ) {
     exit();
 }
 $status = "";
-if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['lastname']) && isset($_POST['contact']) && isset($_POST['gender']) && isset($_POST['dob']) && isset($_POST['age']) && isset($_POST['course']) && isset($_POST['username']) && isset($_POST['password'])) {
-    if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['lastname']) || empty($_POST['contact']) || empty($_POST['gender']) || empty($_POST['dob']) || empty($_POST['age']) || empty($_POST['course']) || empty($_POST['username']) || empty($_POST['password'])) {
+if (isset($_POST['student_id']) && isset($_POST['firstname']) && isset($_POST['address']) && isset($_POST['lastname']) && isset($_POST['contact']) && isset($_POST['year']) && isset($_POST['gender']) && isset($_POST['dob']) && isset($_POST['course']) && isset($_POST['password'])) {
+    if (empty($_POST['student_id']) || empty($_POST['firstname']) || empty($_POST['address']) || empty($_POST['lastname']) && isset($_POST['contact']) && isset($_POST['year']) || empty($_POST['gender']) || empty($_POST['dob']) || empty($_POST['course']) || empty($_POST['password'])) {
         $status = "none";
     } else {
         $mysqli = DB();
+        $student_id = trim(mysqli_real_escape_string($mysqli,$_POST['student_id']));
         $firstname = trim(mysqli_real_escape_string($mysqli,$_POST['firstname']));
         $middlename = trim(mysqli_real_escape_string($mysqli,$_POST['middlename']));
         $lastname = trim(mysqli_real_escape_string($mysqli,$_POST['lastname']));
+        $address = trim(mysqli_real_escape_string($mysqli,$_POST['address']));
         $contact = trim(mysqli_real_escape_string($mysqli,$_POST['contact']));
         $gender = trim(mysqli_real_escape_string($mysqli,$_POST['gender']));
         $dob = trim(mysqli_real_escape_string($mysqli,$_POST['dob']));
-        $age = trim(mysqli_real_escape_string($mysqli,$_POST['age']));
+        $year = trim(mysqli_real_escape_string($mysqli,$_POST['year']));
+        $date1 = new DateTime($dob);
+        $date2 = new DateTime(date("Y-m-d"));
+        $days  = $date2->diff($date1)->format('%a');
+        $age = $days / 365;
+        $age = (int)$age;
         $course = trim(mysqli_real_escape_string($mysqli,$_POST['course']));
-        $username = trim(mysqli_real_escape_string($mysqli,$_POST['username']));
-        $password = trim(mysqli_real_escape_string($mysqli,$_POST['password']));
+        $username = $student_id;
+        $password = "rODeCOLEDgEN";
         $role = trim(mysqli_real_escape_string($mysqli,$_POST['role']));
         $token = bin2hex(random_bytes(20));
 
-        $sql = "INSERT INTO users(firstname,middlename,lastname,contact,gender,dob,age,course_id,username,password,token,role) VALUES('$firstname','$middlename','$lastname','$contact','$gender','$dob',$age,$course,'$username','$password','$token','$role')";
+        $sql = "INSERT INTO users(student_id,firstname,middlename,lastname,contact,gender,dob,age,course_id,username,password,token,role,year,address) VALUES($student_id,'$firstname','$middlename','$lastname','$contact','$gender','$dob',$age,$course,'$username','$password','$token','$role','$year','$address')";
         try {
             if ($mysqli->query($sql)) $status = "success";
             if ($mysqli->errno) $status = "error";
@@ -34,6 +41,7 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
         
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,8 +49,10 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HCC</title>
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
     <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/main.js"></script>
 </head>
 <body>
@@ -58,13 +68,19 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
         <div class="row">
             <div class="forms">
                 <form action="users-add.php" method="post">
-                    <div class="row"><input type="text" name="firstname" placeholder="Firstname" required /></div>
-                    <div class="row"><input type="text" name="middlename" placeholder="Middlename" required /></div>
-                    <div class="row"><input type="text" name="lastname" placeholder="Lastname" required /></div>
-                    <div class="row"><input type="text" name="contact" placeholder="Contact #" required /></div>
-                    <div class="row"><input type="text" name="gender" placeholder="Gender" required /></div>
-                    <div class="row"><input type="text" name="dob" placeholder="Date of birth" required /></div>
-                    <div class="row"><input type="number" name="age" placeholder="Age" required /></div>
+                    <div class="row"><input type="number" name="student_id" placeholder="Student ID" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="firstname" placeholder="Firstname" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="middlename" placeholder="Middlename" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" /></div>
+                    <div class="row"><input type="text" name="lastname" placeholder="Lastname" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="address" placeholder="Address" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" pattern="\d*" minlength="11" maxlength="11" title="Numbers only and it should exact 11 numbers" name="contact" placeholder="Contact #" autocomplete="off" required /></div>
+                    <div class="row">
+                        <select name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="row"><input type="text" name="dob" placeholder="Date of birth" autocomplete="off" pattern="[0-9-]+" title="Date pattern only" required /></div>
                     <div class="row">
                         <select name="course">
                             <?php
@@ -78,8 +94,16 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
                             ?>
                         </select>
                     </div>
-                    <div class="row"><input type="text" name="username" placeholder="Username" required /></div>
-                    <div class="row"><input type="text" name="password" placeholder="Password" required /></div>
+                    <div class="row">
+                        <select name="year" required>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                            <option value="Irregular">Irregular</option>
+                        </select>
+                    </div>
+                    <div class="row"><input type="text" name="password" placeholder="Password" autocomplete="off" value="rODeCOLEDgEN" readonly="readonly" /></div>
                     <div class="row">
                         <select name="role">
                             <option value="student">Student</option>
@@ -93,6 +117,15 @@ if (isset($_POST['firstname']) && isset($_POST['middlename']) && isset($_POST['l
                     <?php if ($status == "error") echo '<div class="row" style="color: red;">Errors during insert.</div>'; ?>
                     <?php if ($status == "duplicate") echo '<div class="row" style="color: red;">User already in database.</div>'; ?>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div id="popup" class="overlay  <?php if ($status != "success") echo 'overlay-hidden'; ?>">
+        <div class="popup">
+            <h2 style="color: green;">Success</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content" style="font-style: italic;">
+                Added successful.
             </div>
         </div>
     </div>

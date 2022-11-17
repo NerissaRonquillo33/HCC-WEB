@@ -31,7 +31,7 @@ if ( !isset( $_SESSION['username'] ) ) {
         </div>
         <div class="row">
             <div class="table">
-                <div class="table-row"><div class="table-cell-head">Degree</div><div class="table-cell-head">Code</div><div class="table-cell-head">Description</div><div class="table-cell-head">Unit</div><div class="table-cell-head">Semester</div><div class="table-cell-head">Year</div><div class="table-cell"></div></div>
+                <div class="table-row"><div class="table-cell-head">Degree</div><div class="table-cell-head">Code</div><div class="table-cell-head">Description</div><div class="table-cell-head">Objectives</div><div class="table-cell-head">Schedule</div><div class="table-cell-head">Unit</div><div class="table-cell-head">Semester</div><div class="table-cell-head">Year</div><div class="table-cell"></div></div>
                 <?php
                 $mysqli = DB();
                 $result = $mysqli->query("
@@ -43,13 +43,15 @@ if ( !isset( $_SESSION['username'] ) ) {
                     cour.unit, 
                     cour.semester, 
                     cour.year, 
+                    cour.objectives, 
+                    cour.schedule, 
                     cname.title 
                     FROM courses cour
                     LEFT JOIN courses_name cname ON cour.course_name_id=cname.id");
 
                 $rows = $result->fetch_all(MYSQLI_ASSOC);
                 foreach ($rows as $row) {
-                    echo '<div class="table-row"><div class="table-cell">'.$row["title"].'</div><div class=<div class="table-cell">'.$row["code"].'</div><div class="table-cell">'.$row["description"].'</div><div class="table-cell">'.$row["unit"].'</div><div class="table-cell">'.$row["semester"].'</div><div class="table-cell">'.$row["year"].'</div><div class="table-cell-button"><img src="./images/edit.png" style="width: 17px;cursor: pointer;transform: scale(1.5);" onclick="location.href=\'courses-edit.php?id='.$row["id"].'\';"/></div></div>';
+                    echo '<div class="table-row"><div class="table-cell">'.$row["title"].'</div><div class="table-cell">'.$row["code"].'</div><div class="table-cell">'.$row["description"].'</div><div class="table-cell">'.$row["objectives"].'</div><div class="table-cell">'.$row["schedule"].'</div><div class="table-cell">'.$row["unit"].'</div><div class="table-cell">'.$row["semester"].'</div><div class="table-cell">'.$row["year"].'</div><div class="table-cell-button"><img src="./images/edit.png" style="width: 17px;cursor: pointer;transform: scale(1.5);" onclick="location.href=\'courses-edit.php?id='.$row["id"].'\';"/></div></div>';
                 }
                 ?>
             </div>

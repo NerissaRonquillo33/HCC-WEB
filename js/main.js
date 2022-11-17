@@ -59,4 +59,15 @@ $(function(){
         return false;
     });
 
+    $('input[name="dob"]').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1930:2025",
+        dateFormat: "yy-mm-dd"
+    });
+
+    $('.close').on('click', function(){
+        $('#popup').removeClass().addClass('overlay overlay-hidden')
+    });
+
 }); 
