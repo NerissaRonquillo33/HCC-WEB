@@ -69,9 +69,9 @@ if (isset($_POST['student_id']) && isset($_POST['firstname']) && isset($_POST['a
             <div class="forms">
                 <form action="users-add.php" method="post">
                     <div class="row"><input type="number" name="student_id" placeholder="Student ID" autocomplete="off" required /></div>
-                    <div class="row"><input type="text" name="firstname" placeholder="Firstname" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" required /></div>
-                    <div class="row"><input type="text" name="middlename" placeholder="Middlename" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" /></div>
-                    <div class="row"><input type="text" name="lastname" placeholder="Lastname" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="firstname" placeholder="Firstname" pattern="[A-Za-z\s]+" title="Alphabet only" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="middlename" placeholder="Middlename" pattern="[A-Za-z\s]+" title="Alphabet only" autocomplete="off" /></div>
+                    <div class="row"><input type="text" name="lastname" placeholder="Lastname" pattern="[A-Za-z\s]+" title="Alphabet only" autocomplete="off" required /></div>
                     <div class="row"><input type="text" name="address" placeholder="Address" autocomplete="off" required /></div>
                     <div class="row"><input type="text" pattern="\d*" minlength="11" maxlength="11" title="Numbers only and it should exact 11 numbers" name="contact" placeholder="Contact #" autocomplete="off" required /></div>
                     <div class="row">

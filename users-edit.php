@@ -85,9 +85,9 @@ if (isset($_GET['id'])) {
                 <form action="users-edit.php?id=<?php echo $_GET['id']; ?>" method="post">
                     <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                     <div class="row"><input type="number" name="student_id" placeholder="Student ID" autocomplete="off" value="<?php echo $row_user["student_id"]; ?>" disabled /></div>
-                    <div class="row"><input type="text" name="firstname" value="<?php echo $row_user["firstname"]; ?>" placeholder="Firstname" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" required /></div>
-                    <div class="row"><input type="text" name="middlename" value="<?php echo $row_user["middlename"]; ?>" placeholder="Middlename" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" /></div>
-                    <div class="row"><input type="text" name="lastname" value="<?php echo $row_user["lastname"]; ?>" placeholder="Lastname" pattern="[A-Za-z]+" title="Alphabet only" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="firstname" value="<?php echo $row_user["firstname"]; ?>" placeholder="Firstname" pattern="[A-Za-z\s]+" title="Alphabet only" autocomplete="off" required /></div>
+                    <div class="row"><input type="text" name="middlename" value="<?php echo $row_user["middlename"]; ?>" placeholder="Middlename" pattern="[A-Za-z\s]+" title="Alphabet only" autocomplete="off" /></div>
+                    <div class="row"><input type="text" name="lastname" value="<?php echo $row_user["lastname"]; ?>" placeholder="Lastname" pattern="[A-Za-z\s]+" title="Alphabet only" autocomplete="off" required /></div>
                     <div class="row"><input type="text" name="address" value="<?php echo $row_user["address"]; ?>" placeholder="Address" autocomplete="off" required /></div>
                     <div class="row"><input type="text" pattern="\d*" minlength="11" maxlength="11" title="Numbers only and it should exact 11 numbers" name="contact" value="<?php echo $row_user["contact"]; ?>" placeholder="Contact #" autocomplete="off" required /></div>
                     <div class="row">
