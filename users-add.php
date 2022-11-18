@@ -27,7 +27,7 @@ if (isset($_POST['student_id']) && isset($_POST['firstname']) && isset($_POST['a
         $age = (int)$age;
         $course = trim(mysqli_real_escape_string($mysqli,$_POST['course']));
         $username = $student_id;
-        $password = "rODeCOLEDgEN";
+        $password = "hcc1234";
         $role = trim(mysqli_real_escape_string($mysqli,$_POST['role']));
         $token = bin2hex(random_bytes(20));
 
@@ -103,7 +103,7 @@ if (isset($_POST['student_id']) && isset($_POST['firstname']) && isset($_POST['a
                             <option value="Irregular">Irregular</option>
                         </select>
                     </div>
-                    <div class="row"><input type="text" name="password" placeholder="Password" autocomplete="off" value="rODeCOLEDgEN" readonly="readonly" /></div>
+                    <div class="row"><input type="text" name="password" placeholder="Password" autocomplete="off" value="hcc1234" readonly="readonly" /></div>
                     <div class="row">
                         <select name="role">
                             <option value="student">Student</option>
